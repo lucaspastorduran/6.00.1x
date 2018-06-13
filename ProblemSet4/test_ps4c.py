@@ -19,6 +19,6 @@ if __name__ == '__main__':
     hand = getFrequencyDict(word)
     len_hand = calculateHandlen(hand)
     test_skynetPlayHand(hand, wordList, len_hand)
-    print('Starting 6.00.1x computer hand')
+    print('\nStarting 6.00.1x computer hand')
     compPlayHand(hand, wordList, len_hand)
     #test_skynetChooseWord()

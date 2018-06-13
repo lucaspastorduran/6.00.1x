@@ -22,24 +22,26 @@ def skynetChooseWord(hand, wordList, n):
     wordList: list (string)
     n: integer (HAND_SIZE; i.e., hand size required for additional points)
     """
-    hand_len = calculateHandlen(hand)
+    #hand_len = calculateHandlen(hand)
     #print("Starting with hand with {} letters:\n{}".format(hand_len, hand))
     # if there are no more letters, we finished
+    words_and_scores = [["",0]]
     if calculateHandlen(hand) <= 0:
-        return 0
+        return words_and_scores
     else:
         # we still have more letters, check if there are more combinations
-        words_and_scores = [["NotAValidResult",0]]
+        hand_possible_paths = []
         for word in wordList:
             # If you can construct the word from your hand
             if isValidWord(word, hand, wordList):
-                word_score = getWordScore(word, n)
+                word_score = getWortdScore(word, n)
+                path = [[word, word_score]]
                 #print("Found a valid word '{}'. With score {}".format(word, word_score))
                 # find out how much making that word is worth
                 remaining_hand = updateHand(hand, word)
                 #print("remaining hand:", remaining_hand)
-                score = getWordScore(word, n) + skynetChooseWord(remaining_hand, wordList, n)[1]
-                words_and_scores.append([word, score])
+                path.extend(skynetChooseWord(remaining_hand, wordList, n))
+                hand_possible_paths.append([word, score])
         # Choose the word with the highest score and play that hand
         #if len(words_and_scores) > 1:
             #print("All the words and scores found are:", words_and_scores)
@@ -48,7 +50,7 @@ def skynetChooseWord(hand, wordList, n):
         score = words_and_scores[0][1]
         #if len(words_and_scores) > 1:
         #    print("From all the words seen in hand {}, {} was the best with score {}".format(hand,word, score))
-        return words_and_scores[0]
+        return words_and_scores
 
 
 #
