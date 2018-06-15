@@ -31,7 +31,7 @@ def loadWords():
     wordList = []
     for line in inFile:
         wordList.append(line.strip().lower())
-    wordList = wordList[::50]
+    #wordList = wordList[::50]
     print("  ", len(wordList), "words loaded.")
     return wordList
 

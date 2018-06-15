@@ -1,6 +1,21 @@
 from ps4b import *
 
 #
+# Compute all the points of a list of words
+#
+def computeWordsTotalScore(path_words, n):
+    """
+    Given a list of words that represent all the possible hands
+    of a given path, compute their total score.
+    
+    wordList: list (string)
+    n: integer (HAND_SIZE; i.e., hand size required for additional points)
+    return: sum of scores of each word in path_words
+    """
+    return sum([getWordScore(word, n) for word in path_words])
+
+
+#
 # Computer plays a hand in an extreme way
 #
 def skynetChooseWord(hand, wordList, n):
@@ -22,35 +37,36 @@ def skynetChooseWord(hand, wordList, n):
     wordList: list (string)
     n: integer (HAND_SIZE; i.e., hand size required for additional points)
     """
-    #hand_len = calculateHandlen(hand)
-    #print("Starting with hand with {} letters:\n{}".format(hand_len, hand))
+    hand_len = calculateHandlen(hand)
+    print("\nStarting with hand with {} letters:\n{}".format(hand_len, hand))
     # if there are no more letters, we finished
-    words_and_scores = [["",0]]
+    words_and_scores = [[[''],0]]
     if calculateHandlen(hand) <= 0:
         return words_and_scores
     else:
         # we still have more letters, check if there are more combinations
-        hand_possible_paths = []
         for word in wordList:
             # If you can construct the word from your hand
             if isValidWord(word, hand, wordList):
-                word_score = getWortdScore(word, n)
-                path = [[word, word_score]]
-                #print("Found a valid word '{}'. With score {}".format(word, word_score))
+                print("Found valid word:", word)
                 # find out how much making that word is worth
                 remaining_hand = updateHand(hand, word)
-                #print("remaining hand:", remaining_hand)
-                path.extend(skynetChooseWord(remaining_hand, wordList, n))
-                hand_possible_paths.append([word, score])
+                print("remaining hand:", remaining_hand)
+                # check what words and scores can we get with remaining hand
+                hand_possible_paths = skynetChooseWord(remaining_hand, wordList, n)
+                print("Possible games after current hand:\n", hand_possible_paths)
+                # add the current word and score to result found
+                hand_possible_paths[0].append(word)
+                hand_possible_paths[1] += getWordScore(word, n)
+                print("Possible games after current hand including word:\n", hand_possible_paths)
+                # store it in words_and_scores to later see if its the best solution
+                words_and_scores.append(hand_possible_paths)
+                
         # Choose the word with the highest score and play that hand
-        #if len(words_and_scores) > 1:
-            #print("All the words and scores found are:", words_and_scores)
         words_and_scores.sort(key=lambda x: x[1], reverse = True)
-        word = words_and_scores[0][0]
-        score = words_and_scores[0][1]
-        #if len(words_and_scores) > 1:
-        #    print("From all the words seen in hand {}, {} was the best with score {}".format(hand,word, score))
-        return words_and_scores
+        if len(words_and_scores) > 1:
+            print("All the words and scores found are:", words_and_scores)
+        return words_and_scores[0]
 
 
 #
@@ -84,7 +100,7 @@ def skynetPlayHand(hand, wordList, n):
         # computer's word
         word = skynetChooseWord(hand, wordList, n)[0]
         # If the input is a single period:
-        if word == 'NotAValidResult':
+        if word == '':
             # End the game (break out of the loop)
             break
             

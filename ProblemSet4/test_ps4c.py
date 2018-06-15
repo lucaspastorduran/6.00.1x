@@ -13,7 +13,7 @@ def test_skynetPlayHand(hand, wordList, n):
     skynetPlayHand(hand, wordList, n)
 
 if __name__ == '__main__':
-    wordList = loadWords()
+    wordList = loadWords()[0::50]
     wordList.extend(['tarantula', 'scorpion', 'haters', 'axis'])
     word = "hatersaxi"
     hand = getFrequencyDict(word)
