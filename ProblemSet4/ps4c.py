@@ -1,19 +1,5 @@
 from ps4b import *
 
-#
-# Compute all the points of a list of words
-#
-def computeWordsTotalScore(path_words, n):
-    """
-    Given a list of words that represent all the possible hands
-    of a given path, compute their total score.
-    
-    wordList: list (string)
-    n: integer (HAND_SIZE; i.e., hand size required for additional points)
-    return: sum of scores of each word in path_words
-    """
-    return sum([getWordScore(word, n) for word in path_words])
-
 
 #
 # Computer plays a hand in an extreme way
@@ -56,12 +42,11 @@ def skynetChooseWord(hand, wordList, n):
                 hand_possible_paths = skynetChooseWord(remaining_hand, wordList, n)
                 print("Possible games after current hand:\n", hand_possible_paths)
                 # add the current word and score to result found
-                hand_possible_paths[0].append(word)
+                hand_possible_paths[0].insert(0, word)
                 hand_possible_paths[1] += getWordScore(word, n)
                 print("Possible games after current hand including word:\n", hand_possible_paths)
                 # store it in words_and_scores to later see if its the best solution
                 words_and_scores.append(hand_possible_paths)
-                
         # Choose the word with the highest score and play that hand
         words_and_scores.sort(key=lambda x: x[1], reverse = True)
         if len(words_and_scores) > 1:
