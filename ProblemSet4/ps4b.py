@@ -1,4 +1,5 @@
 from ps4a import *
+from ps4c import *
 import time
 
 
@@ -115,6 +116,8 @@ def choosePlayer(hand, wordList, n):
             playHand(hand, wordList, n)
         elif player_answer == 'c':
             compPlayHand(hand, wordList, n)
+        elif player_answer == 's':
+            skynetPlayHand(hand, wordList, n)
         else:
             print('Invalid command.')
     return None
@@ -161,12 +164,14 @@ def playGame(wordList):
                 print("You have not played a hand yet. Please play a new hand first!")
             else:
                 player_answer = None
-                while (player_answer is None) or (player_answer != 'u' and player_answer != 'c'):  
-                    player_answer = input('Enter u to have yourself play, c to have the computer play: ')
+                while (player_answer is None) or (player_answer not in 'ucs'):  
+                    player_answer = input('Enter u to have yourself play, c to have the computer play, s to have SkyNet play: ')
                     if player_answer == 'u':
                         playHand(hand, wordList, n)
                     elif player_answer == 'c':
                         compPlayHand(hand, wordList, n)
+                    elif player_answer == 's':
+                        skynetPlayHand(hand, wordList, n)
                     else:
                         print('Invalid command.')
         else:

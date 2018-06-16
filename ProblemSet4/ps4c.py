@@ -93,4 +93,5 @@ def skynetPlayHand(hand, wordList, n):
         hand = updateHand(hand, word)
         #print()
     # Game is over (user entered a '.' or ran out of letters), so tell user the total score
+    displayHand(hand)
     print('Total score: ' + str(totalScore) + ' points.')
