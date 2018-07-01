@@ -96,32 +96,6 @@ def compPlayHand(hand, wordList, n):
     print('Total score: ' + str(totalScore) + ' points.')
 
     
-    
-    
-def choosePlayer(hand, wordList, n):
-    """
-    Given a hand and a wordList, decide if has to be played by
-    the computer or the user.
-    
-    hand: dictionary (string -> int)
-    wordList: list (string)
-    n: integer (HAND_SIZE; i.e., hand size required for additional points)
-
-    returns: None
-    """
-    player_answer = None
-    while (player_answer is None) or (player_answer != 'u' and player_answer != 'c'):  
-        player_answer = input('Enter u to have yourself play, c to have the computer play: ')
-        if player_answer == 'u':
-            playHand(hand, wordList, n)
-        elif player_answer == 'c':
-            compPlayHand(hand, wordList, n)
-        elif player_answer == 's':
-            skynetPlayHand(hand, wordList, n)
-        else:
-            print('Invalid command.')
-    return None
-    
 #
 # Problem #6: Playing a game
 #
@@ -177,22 +151,6 @@ def playGame(wordList):
         else:
             print('Invalid command.')
     return None
-    
-#    while True:
-#        usr_input = input('Enter n to deal a new hand, r to replay the last hand, or e to end game: ')
-#        if usr_input == 'e':
-#            break
-#        elif usr_input == 'n':
-#            hand = dealHand(n)
-#            choosePlayer(hand, wordList, n)            
-#        elif usr_input == 'r':
-#            if hand is None:
-#                print("You have not played a hand yet. Please play a new hand first!")
-#            else:
-#                choosePlayer(hand, wordList, n)  
-#        else:
-#            print('Invalid command.')
-#    return None
         
 #
 # Build data structures used for entire session and play game
