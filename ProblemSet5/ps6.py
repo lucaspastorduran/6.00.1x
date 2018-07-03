@@ -102,7 +102,13 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        pass #delete this line and replace with your code here
+        n_letters = len(string.ascii_lowercase)
+        encrypting_map = {}
+        for index, letter in enumerate(string.ascii_lowercase):
+            encrypting_map[letter] = string.ascii_lowercase[(index + shift)%n_letters]
+        for index, letter in enumerate(string.ascii_uppercase):
+            encrypting_map[letter] = string.ascii_uppercase[(index + shift)%n_letters]
+        return encrypting_map
 
     def apply_shift(self, shift):
         '''
@@ -116,7 +122,11 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        pass #delete this line and replace with your code here
+        encrypting_map = self.build_shift_dict(shift)
+        encrypted_msg = ""
+        for letter in self.message_text:
+            encrypted_msg += encrypting_map.get(letter, letter)
+        return encrypted_msg
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
