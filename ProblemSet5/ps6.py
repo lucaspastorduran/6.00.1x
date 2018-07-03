@@ -127,6 +127,8 @@ class Message(object):
         for letter in self.message_text:
             encrypted_msg += encrypting_map.get(letter, letter)
         return encrypted_msg
+    
+
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
         '''
@@ -164,7 +166,7 @@ class PlaintextMessage(Message):
         
         Returns: a COPY of self.encrypting_dict
         '''
-        return self.build_shift_dict
+        return self.encrypting_dict.copy()
 
     def get_message_text_encrypted(self):
         '''
@@ -185,8 +187,10 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         '''
+        self.shift = shift
         self.encrypting_dict = Message.build_shift_dict(self, shift)
         self.message_text_encrypted = Message.apply_shift(self, shift)
+        return None
 
 class CiphertextMessage(Message):
     def __init__(self, text):
@@ -223,7 +227,14 @@ class CiphertextMessage(Message):
 plaintext = PlaintextMessage('hello', 2)
 print('Expected Output: jgnnq')
 print('Actual Output:', plaintext.get_message_text_encrypted())
-    
+plaintext = PlaintextMessage("1.hello!!", 9)
+print("Encripting '1.hello!!' with shift 9:", plaintext.get_message_text_encrypted())    
+plaintext.change_shift(5)
+print("Shift set to 5 is:", plaintext.get_shift())
+plaintext.change_shift(15)
+print("Shift set to 15 is:", plaintext.get_shift())
+
+
 #Example test case (CiphertextMessage)
 ciphertext = CiphertextMessage('jgnnq')
 print('Expected Output:', (24, 'hello'))
