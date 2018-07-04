@@ -237,6 +237,22 @@ class CiphertextMessage(Message):
                 best_score = current_score
                 decrypted_message = shifted_msg
         return (-best_shift%n_letters, decrypted_message)
+    
+#Decrypting a story
+def decrypt_story():
+    """
+    Now that you have all the pieces to the puzzle, please use them 
+    to decode the file story.txt. The file ps6.py contains a helper 
+    function get_story_string() that returns the encrypted version
+    of the story as a string. Create a CiphertextMessage object using
+    the story string and use decrypt_message to return the appropriate
+    shift value and unencrypted story string.
+    
+    Returns: a tuple of the best shift value used to decrypt the message
+    and the decrypted message text using that shift value
+    """
+    cipherstory = CiphertextMessage(get_story_string())
+    return cipherstory.decrypt_message()
 
 #Example test case (PlaintextMessage)
 plaintext = PlaintextMessage('hello', 2)
@@ -254,15 +270,5 @@ print("Shift set to 15 is:", plaintext.get_shift())
 ciphertext = CiphertextMessage('jgnnq')
 print('Expected Output:', (24, 'hello'))
 print('Actual Output:', ciphertext.decrypt_message())
-
-#Decrypting a story
-def decrypt_story():
-    """
-    Now that you have all the pieces to the puzzle, please use them 
-    to decode the file story.txt. The file ps6.py contains a helper 
-    function get_story_string() that returns the encrypted version
-    of the story as a string. Create a CiphertextMessage object using
-    the story string and use decrypt_message to return the appropriate
-    shift value and unencrypted story string.
-    """
-    pass
+    
+print('Story decrypted:', decrypt_story())
