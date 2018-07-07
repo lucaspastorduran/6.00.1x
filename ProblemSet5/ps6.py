@@ -270,5 +270,10 @@ print("Shift set to 15 is:", plaintext.get_shift())
 ciphertext = CiphertextMessage('jgnnq')
 print('Expected Output:', (24, 'hello'))
 print('Actual Output:', ciphertext.decrypt_message())
-    
-print('Story decrypted:', decrypt_story())
+ 
+plaintext = PlaintextMessage("Give me the note with the answer, please. To decript this message shift each letter 25 positions in the english alphabet.\nWe consider the english alphabet as:" + string.ascii_lowercase, 9)
+
+print(plaintext.get_message_text_encrypted())    
+
+   
+#print('Story decrypted:', decrypt_story())
